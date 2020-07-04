@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="./style/framework.css" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="./style/markdown.css" charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="./style/highlight/vs.css" charset="utf-8"/>
+<title>Cowzai / 一位被时代遗忘的人</title>
+</head>
+<body>
+
+<!--进度条-->
+<div class="Progressbar" id="Progressbar"></div>
+
+<!--首屏加载遮罩-->
+<div class="FirstLoadingMask">
+    <svg version="1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="transform: scale(1.4);"><style>@keyframes rotate{0%{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes fillunfill{0%{stroke-dashoffset:32.3}50%{stroke-dashoffset:0}to{stroke-dashoffset:-31.9}}@keyframes rot{0%{transform:rotate(0deg)}to{transform:rotate(-360deg)}}@keyframes colors{0%,to{stroke:#00aaff}}</style><g style="animation-duration:1568.63ms;animation-iteration-count:infinite;animation-name:rotate;animation-timing-function:linear;transform-origin:50% 50%;width:16px;height:16px"><path fill="none" d="M8 1.125A6.875 6.875 0 1 1 1.125 8" stroke-width="2.25" stroke-linecap="round" style="animation-duration:1333ms,5332ms,5332ms;animation-fill-mode:forwards;animation-iteration-count:infinite,infinite,infinite;animation-name:fillunfill,rot,colors;animation-play-state:running,running,running;animation-timing-function:cubic-bezier(.4,0,.2,1),steps(4),linear;transform-origin:50% 50%" stroke-dasharray="32.4" stroke-dashoffset="32.4"/></g></svg>&nbsp;&nbsp;请稍等
+</div>
+
+<!--顶部标题（仅移动端显示）-->
+<div class="StickyTitleContainer" style="display: none;">
+    <div id="StickyTitle" class="StickyTitle" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
+    <div class="StickyTitleBackground"></div>
+</div>
+
+<!--左边栏-->
+<aside class="LeftAside">
+    <!--左上：后退按钮-->
+    <button id="BackButton" class="Button Raised Round" onclick="history.go(-1);" style="display: none;">
+        <img src="./image/icons/back-gray.png" style="height:16px;width:16px;margin-bottom: 2px; vertical-align: middle;">
+    </button>
+</aside>
+
+<!--右边栏-->
+<aside class="RightAside">
+<!--右侧：菜单（目录）-->
+<div id="MenuContainer" class="MenuContainer" style="display: none;">
+<!--菜单顶部的导航栏，包括Toggle按钮-->
+<div class="StickyNavbar">
+<button id="MenuButton" class="MenuButton" data-state="off">menu</button>
+<nav class="Navbar" id="MenuNavbar" style="top: 40px; z-index: 100000; border: none;">
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">说 说</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="blog">博 客</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
+</nav>
+</div>
+<!--菜单主题内容-->
+<div id="MenuContentContainer" class="MenuContentContainer"></div>
+</div>
+<!--右下：回到顶部按钮-->
+<button id="GoTopButton" class="Button Raised Round" style="position: absolute; bottom: 80px; right: 0;" onclick="$('html, body').animate({scrollTop:0},'fast');">
+<img src="./image/icons/gotop.png"  style="height:19px;width:17px; vertical-align: middle;">
+</button>
+</aside>
+<!--页面框架-->
+<div class="Main">
+<!--标题和封面-->
+<header class="Header SPA_TITLE_CONTAINER"></header>
+<!--导航栏-->
+<nav class="Navbar" id="MainNavbar">
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="index">首 页</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="inspirations">说 说</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="blog">博 客</button>
+<button class="NavbarItem SPA_TRIGGER" active="false" data-target="about">关 于</button>
+</nav>
+<!--正文内容-->
+<article class="Article SPA_MAIN_CONTAINER"></article>
+<!--底部-->
+<footer class="Footer">
+<div style="font-size: 13px; text-align: center; line-height: 25px; color: #ccc;" class="RBGradient">★ Miss You body ★</div>
+<div style="font-size: 13px; text-align: center; line-height: 25px; color: #ccc;">© <span class="CopyrightYear"></span> ❤ Cowzai</div>
+</footer>
+</div>
+<!--首页模板-->
+<template class="index" id="index">
+<div class="IndexItemContainer"><div class="IndexItemPaddingBox">
+<table class="IndexItemTable"><tr>
+<td class="IndexItemTableLeft">
+<div class="IndexItemTitle" data-prefix="★">
+<a class="IndexItemTitleLink SPA_TRIGGER" data-target="blog/模板">SPA链接示例</a>
+<span class="IndexItemTitleTag">标签</span></div>
+<div class="IndexItemSummary">
+简短摘要
+</div>
+</td>
+<td class="IndexItemTableRight">
+<span style="font-size: 30px;">🌸</span>
+</td>
+</tr></table>
+</div></div>
+<div class="IndexBottomLink SPA_TRIGGER" data-target="blog">全部文章 »</div>
+<script> SlideInOneByOne("IndexItemContainer", 5, 800, 300); // 进场动画 </script>
+</template>
+<!--灵感页模板-->
+<template id="inspirations">
+<!--正文容器-->
+<div class="InspirationContainer" id="InspirationContainer"></div>
+<!--底部内容-->
+<div class="InspirationEnding" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"></div>
+</template>
+<!--文章列表模板-->
+<template id="blog">
+<div class="ListSortingOptionContainer">
+<span class="ListSortingOption ListSortingOptionLeft" data-sorting-option="date-dec">日期降序</span>
+<span class="ListSortingOption ListSortingOptionRight" data-sorting-option="category">分类归类</span>
+</div>
+<div id="ListContainer"></div>
+<!--文章底部文字-->
+<div class="ListEnding">如果你能懂我的奇奇怪怪</div>
+</template>
+<!--"关于"模板-->
+<template id="about">
+<table style="font-size:14px; text-align: left; margin: 30px auto 30px auto; color: #233333;" align="center">
+        <tr>
+            <td class="AboutTdLeft">我?：</td><td class="AboutTdRight">00后 学生 四川</td>
+        </tr>
+        <tr>
+            <td class="AboutTdLeft">爱好：</td><td class="AboutTdRight">妹子 建站 摄影</td>
+        </tr>
+    </table>
+<div class="AboutTitle" id="motto">格 言</div>
+<div class="AboutContent">时代易逝 风格永存</div>
+<div class="AboutTitle" id="blogroll" style="color:#ff6893; background: linear-gradient(90deg, #ffffff, #fff3f3, #ffffff);">
+        友 情 链 接<div class="AboutSubtitle">以添加时间为序 / 欢迎交换友情链接</div>
+</div>
+<table class="AboutBlogrollTable">
+        <tr>
+            <td><a target="_blank" href="https://anlenotes.com/">痴笑先生</a></td>
+            <td><a target="_blank" href="/">暂无</a></td>
+            <td><a target="_blank" href="/">暂无</a></td>
+        </tr>
+</table>
+<div class="AboutTitle" id="contacts">联 系 方 式</div>
+<div class="AboutContent">
+<a class="AboutLink" target="_blank" href="http://qm.qq.com/cgi-bin/qm/qr?k=MwIvGFfCBsi6yo2SoxRkycd7bEzXMQdc">QQ</a>
+<span class="AboutSeparator">/</span>
+<a class="AboutLink" target="_blank" href="mailto:cowzai@qq.com">Email</a>
+<span class="AboutSeparator">/</span>
+<a class="AboutLink" target="_blank" href="/byd">电话</a>
+<div style="margin:0 auto 0px auto">
+<div style="font-size: 13px;color:#888888;line-height: 25px;">— 个人微信 —</div>
+<img src="/image/vx.png" style="display:block; margin:0px auto 0 auto; width:20%; min-width: 150px;">
+</div>
+</div>
+<div class="AboutTitle" id="copyright">权 利 声 明</div>
+<div class="AboutContent">若无特殊说明版权归本站所有.</div>
+<div class="AboutContent" style="font-size: smaller;">所有<b>原创</b>内容均可在<br>①署作者名或链接 & ②非盈利用途 & ③无实质性修改<br>的前提下使用和传播。</div>
+<div class="AboutContent" style="font-size: smaller;">所有<b>非原创</b>内容均尽可能注明原作者或出处<br>且遵守合理使用原则。<br>在此感谢并致敬各位原作者。</div>
+<div class="AboutTitle" id="changelog">大 事 记</div>
+<div class="AboutEdition">
+<p class="AboutVernum">V1.0<span style="color:#888888;padding-left: 15px;">2020.04.08</span></p>
+<p class="AboutChangelog">网站正式上线</p>
+</div>
+<div class="AboutContent" style="color:#ff88aa; font-size: 18px; letter-spacing: 2px; margin-bottom:20px; margin-top: 20px;">感谢来访</div>
+</template>
+
+<!--文章正文框架模板-->
+<template id="blog-article">
+    <div class="MikumarkMetadata">
+        <span id="MikumarkMetadataDate" style="padding-right:8px;"><span class="SkeletonPlaceholder" style="width:70px;">0</span></span>·<span id="MikumarkMetadataAuthors" style="padding-left:8px;"><span class="SkeletonPlaceholder" style="width:70px;">0</span></span>
+    </div>
+    <div class="MikumarkContainer" id="MikumarkContainer">
+        <span class="SkeletonPlaceholder" style="width:100%;">占位骨架</span><br>
+        <span class="SkeletonPlaceholder" style="width:100%;">占位骨架</span><br>
+        <span class="SkeletonPlaceholder" style="width:70%;">占位骨架</span><br>
+    </div>
+</template>
+
+
+
+<!--封面参数-->
+
+<template id="index-titlebg">        url(https://ae01.alicdn.com/kf/U7cc20e3019d445249212245912b48daa3.jpg) </template>
+<template id="inspirations-titlebg"> url(https://ae01.alicdn.com/kf/U4e7f39ce650e42a18ff1db2ac5fdc5ebH.jpg) </template>
+<template id="blog-titlebg">         url(https://ae01.alicdn.com/kf/U1cab1489deba4ca6a8f7d306a74e398eL.jpg) </template>
+<template id="about-titlebg">        url(https://ae01.alicdn.com/kf/Ucdf820196fae46b6a9300259d7ece5e8d.jpg) </template>
+
+<!--Header模板-->
+<template id="index-title">
+<div class="HeaderTitleCenter"><b>Miss You body</b>
+<div class="HeaderSubtitleCenter">- 申し上げにくい -</div></div></template>
+<template id="inspirations-title"> <div class="HeaderTitleLeft">说说</div> </template>
+<template id="blog-title">         <div class="HeaderTitleLeft">博客</div> </template>
+<template id="about-title">        <div class="HeaderTitleLeft">关于</div> </template>
+<!-- <template id="about-title"><div class="HeaderTitleLeft">关于</div></template> -->
+
+<!--文章正文Header-->
+<template id="blog-article-title"><div class="TitleContainer"><div class="Title" id="Title" style="opacity: 1;">请稍等...</div></div></template>
+
+<!--SPA交互和渲染控制-->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$']]},
+    delayStartupUntil: "configured"
+});
+</script>
+<script async src="https://cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML&delayStartupUntil=configured"></script>
+
+<script src="./script/framework/jquery/jquery.min.js"></script>
+<script src="./script/framework/jquery/jquery.easing.js"></script>
+<script src="./script/framework/framework.js"></script>
+<script src="./script/framework/list.js"></script>
+<script src="./script/framework/inspiration.js"></script>
+<script src="./script/framework/highlight/highlight.js"></script>
+<script src="./script/framework/mikumark.js"></script>
+<script src="./script/framework/article.js"></script>
+<script>
+
+////////////////////////////////////////////////////////
+//
+//  页 面 冷 启 动 流 程
+//
+////////////////////////////////////////////////////////
+
+(() => {
+    SPA_RegisterTriggers();
+    ActionsOnReady();
+
+    window.onload = () => {
+
+        let HashString = (window.location.hash === "") ? "#/index" : window.location.hash;
+        SPA_Render(HashString);
+        if(!history.state) {
+            history.pushState({PageID: HashString}, '', window.location.href);
+            SCROLL_POSITION_STACK.push(window.pageYOffset);
+        }
+    };
+
+    window.onresize = () => {
+        ArrangeSideButtonLayout();
+    };
+
+    // 返回按钮动作
+    window.onpopstate = (e) => {
+        let prevScrollY = SCROLL_POSITION_STACK.pop() || 0;
+        let currentPath = e.state.PageID;
+        let pageId = currentPath.split("/")[0];
+        if(!e.state) {
+            console.log(`目标state为空`);
+        }
+        else {
+            SPA_Render(currentPath, () => {
+                // 跳转到标题处
+                if(pageId === "blog" || pageId === "wiki") {
+                    $('html').scrollTop(prevScrollY);
+                }
+            });
+        }
+    };
+
+    $(window).resize();
+    $(window).scroll();
+
+})();
+</script>
+</body>
+</html>
